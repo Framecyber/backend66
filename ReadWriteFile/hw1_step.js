@@ -1,0 +1,30 @@
+const express = require('express')
+const app = express()
+
+let fs = require('fs/promises')
+
+// ทำ Async แบบ Serial โดยใช้ promise-based
+async function createRobotFile () {
+
+
+    try {
+        const head = await fs.readFile('head.txt', 'utf8')
+        const body = await fs.readFile('body.txt', 'utf8')
+        const leg = await fs.readFile('leg.txt', 'utf8')
+        const feet = await fs.readFile('feet.txt', 'utf8')
+
+        const text = head + '\n' + body + '\n' + leg + '\n' + feet + '\n'
+        await fs.writeFile('robot.txt', text, 'utf8')
+
+    } catch (err) {
+        console.log("Error = " + err.message)
+    }
+    
+}
+
+// Call function
+
+createRobotFile()
+
+
+
